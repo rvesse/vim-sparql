@@ -1,10 +1,16 @@
 # VIM-SPARQL
 
-This is an unofficial fork of [http://www.vim.org/scripts/script.php?script_id=1755](http://www.vim.org/scripts/script.php?script_id=1755). This fork simply adds a filetype detection.
+This is an fork of a script originally uploaded to [http://www.vim.org/scripts/script.php?script_id=1755](http://www.vim.org/scripts/script.php?script_id=1755). 
 
-This is a first stab at syntax highlighting for SPARQL.
-Very useful if you write SPARQL in, for example, `rq` files that you can use with the `roqet` command line query processor. 
+This fork includes file type detection
 
-More information on SPARQL at [http://www.w3.org/TR/rdf-sparql-query/](http://www.w3.org/TR/rdf-sparql-query/).
+## TODO
+
+- SPARQL 1.1 syntax support
+- SPARQL Update support
+
+## Acknowledgements
 
 Original by Jeroen Pulles, 2007-01-07
+
+Filetype detection added by original fork at https://github.com/Omer/vim-sparql
