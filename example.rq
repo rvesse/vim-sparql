@@ -17,6 +17,33 @@ WHERE
   OPTIONAL { }
   SERVICE <http://endpoint> { }
 
+  # Deep nesting and folding
+  # Graph Pattern braces are marked as fold points
+  {
+    {
+      {
+        # 5 levels deep
+        {
+          # 6 levels deep - beyond this point vim should fold by default since we define the foldlevel to be 5
+          # Use :foldopen to open the fold
+          {
+            # 7 levels deep
+            {
+              # 8 levels deep
+              {
+                 # 9 levels deep
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  # Blank Node braces are also marked as fold points
+  [ ?a [ ?b [ ?c [ ?d [ ?e ] ] ] ] ]
+  # As well as function call braces
+  BIND(STR(STR(STR(STR(STR(STR(STR(STR(?a)))))))))
+
   # Check highlighting of some functions
   FILTER EXISTS { ?x a ?type }
   FILTER NOT EXISTS { ?x a ?type }

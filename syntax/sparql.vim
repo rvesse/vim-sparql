@@ -54,7 +54,12 @@ syntax match rqQIRIREF /<[^<>'{}|^`\u00-\u20]*>/ contains=rqCodepointEscape
 " (JPU: High code points crash my vim, too many character classes SEGV my vim
 "  I'll just keep it simple for now: recognize word-class characters plus
 "  escapes: )
-syntax match rqVar /[?$]\{1\}\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+/ contains=rqCodepointEscape 
+syntax match rqVar /[?$]\{1\}\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+/ contains=rqCodepointEscape
+
+" Folding Regions
+syntax region rqGraphPatternFold start="{" end="}" transparent fold
+syntax region rqBlankNodeFold start="\[" end="\]" transparent fold
+syntax region rqFunctionOrCollectionFold start="(" end=")" transparent fold
 
 " Apply highlighting
 highlight link rqKeyword Keyword 
