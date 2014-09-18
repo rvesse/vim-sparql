@@ -13,6 +13,12 @@ elseif exists("b:current_syntax")
   finish
 endif
 
+" Folding Regions
+" Must be defined first so later matches can override the colours
+syntax region rqGraphPatternFold start="{" end="}" transparent fold
+syntax region rqBlankNodeFold start="\[" end="\]" transparent fold
+syntax region rqFunctionOrCollectionFold start="(" end=")" transparent fold
+
 " 19.8 - Note 1 - Keywords are matched in a case-insensitive manner (except a, true and false)
 syntax case ignore
 syntax keyword rqKeyword BASE PREFIX SELECT CONSTRUCT DESCRIBE ASK FROM NAMED DISTINCT REDUCED WHERE ORDER BY ASC DESC LIMIT OFFSET GROUP HAVING OPTIONAL GRAPH UNION VALUES UNDEF MINUS SERVICE BIND AS FILTER LOAD CLEAR DROP CREATE ADD MOVE COPY SILENT INTO TO INSERT DELETE DATA WITH USING DEFAULT NAMED ALL
@@ -56,10 +62,13 @@ syntax match rqQIRIREF /<[^<>'{}|^`\u00-\u20]*>/ contains=rqCodepointEscape
 "  escapes: )
 syntax match rqVar /[?$]\{1\}\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+/ contains=rqCodepointEscape
 
-" Folding Regions
-syntax region rqGraphPatternFold start="{" end="}" transparent fold
-syntax region rqBlankNodeFold start="\[" end="\]" transparent fold
-syntax region rqFunctionOrCollectionFold start="(" end=")" transparent fold
+" 19.8 - Numerics - Productions 146, 147 and 148
+syntax case ignore
+syntax match rqInteger "\v\d+"
+syntax match rqDecimal "\v\d+\.\d+"
+syntax match rqDouble "\v\d+\.?\d*[eE][-+]?\d+"
+syntax match rqExpOnlyDouble "\v\.[eE][-+]?\d+"
+syntax match rqNoFloatingPointDouble "\v\d+[eE][-+]?\d+"
 
 " Apply highlighting
 highlight link rqKeyword Keyword 
@@ -75,10 +84,15 @@ highlight link rqComment Comment
 highlight link rqRdfType Constant 
 highlight link rqQIRIREF Identifier
 highlight link rqBoolean Boolean
+" Should really be Number but Number defaults to no formatting
+highlight link rqInteger Number
+highlight link rqDecimal Number
+highlight link rqDouble Number
+highlight link rqExpOnlyDouble Number
+highlight link rqNoFloatingPointDouble Number
 highlight link rqQnamePrefix Macro
 highlight link rqCodepointEscape SpecialChar 
-highlight link rqStringEscape SpecialChar 
-
+highlight link rqStringEscape SpecialChar
 
 " Define the default highlighting.
 " For version 5.7 and earlier: only when not done already
