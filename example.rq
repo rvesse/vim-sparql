@@ -9,8 +9,7 @@ FROM NAMED <http://graph>
 WHERE
 {
   # Check highlighting of different syntax elements
-  # BUG URIs are highlighted incorrectly, should include the < > brackets
-  VALUES ?x { <http://example.org/path/to/file.ext?querystring#fragment> }
+  VALUES ?x { <http://example.org/path/to/file.ext?querystring#fragment> "text" "text"^^<http://datatype> "text"@en [] _:blank 123 12.3 1.2e3 true false UNDEF}
   BIND(ISURI(?x) AS ?uri)
   MINUS { ?y a ?type }
   GRAPH ?g { }
@@ -22,7 +21,6 @@ WHERE
   FILTER EXISTS { ?x a ?type }
   FILTER NOT EXISTS { ?x a ?type }
   FILTER CONTAINS(STR(?x), "foo")
-  FILTER CONTAINS( STR(?x), "bar")
   FILTER ?x IN ("foo", "bar")
   FILTER ?x NOT IN ("faz")
 

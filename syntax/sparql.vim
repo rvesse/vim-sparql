@@ -28,6 +28,9 @@ syntax keyword Todo TODO FIXME BUG
 " 19.4 - Comments 
 syntax match rqComment /\#.*$/ contains=Todo,rqCodepointEscape,@Spell
 
+" Operators
+syntax match rqOperators "\v\*|/|\+|-|\<\=?|\>\=?|!\=?|\=|\&\&|\|\|"
+
 " 19.2 and 19.7 - Escape sequences  
 syntax match rqCodepointEscape /\(\\U\x\{8\}\|\\u\x\{4\}\)/ contained contains=NONE
 syntax match rqStringEscape +\\[tnrbf\"']\++ contained contains=NONE
@@ -45,16 +48,13 @@ syntax match rqQnamePrefix /\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+:/he=e-1 contains=rq
 
 " 19.8 - IRIs - Production 139
 " TODO Write a proper IRI rule that actually works
-syntax match rqQIRIREF /\<<[^<>'{}|^`\u00-\u20]*>\>/hs=s-1,he=e+1 contains=rqCodepointEscape 
+syntax match rqQIRIREF /<[^<>'{}|^`\u00-\u20]*>/ contains=rqCodepointEscape 
 
 " 19.8 - Variables - Productions 143, 144 and 166
 " (JPU: High code points crash my vim, too many character classes SEGV my vim
 "  I'll just keep it simple for now: recognize word-class characters plus
 "  escapes: )
 syntax match rqVar /[?$]\{1\}\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+/ contains=rqCodepointEscape 
-
-" Operators
-syntax match rqOperators "\v\*|/|\+|-|\<\=?|\>\=?|!\=?|\=|\&\&|\|\|"
 
 " Apply highlighting
 highlight link rqKeyword Keyword 
