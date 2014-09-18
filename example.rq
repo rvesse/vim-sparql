@@ -50,7 +50,11 @@ WHERE
       {
         # 5 levels deep
         {
-          # 6 levels deep - beyond this point vim should fold by default since we define the foldlevel to be 5
+          # 6 levels deep 
+          # SPARQL syntax define the foldlevel to be 5 so only deeply nested queries are folded automatically
+          # NB - If rainbow parentheis is installed folding may be broken depending on which plugin you have
+          #      If you have Rainbow Parenthesis Improved (https://github.com/oblitum/rainbow) then folding should still work
+          #
           # Use :foldopen to open the fold
           {
             # 7 levels deep
