@@ -6,7 +6,7 @@ This is an fork of a script originally uploaded to [http://www.vim.org/scripts/s
 
 - Highlights most of SPARQL 1.1 Query and Update Syntax
 - Folding support for `{ }`, `[ ]` and `( )`
-- Rainbow parenthesis support (Requires [optional dependencies](#optional-dependencies)
+- Rainbow parenthesis support (Requires [optional dependencies](#optional-dependencies))
 
 ### TODO
 
@@ -34,11 +34,11 @@ The plugin requires Vim 6 or higher.
 
 The plugin can use the following plugins if they are installed and enabled:
 
-- Rainbow Parenthesis - In order of preference
+- Rainbow Parenthesis - In order of preference:
     1. [Rainbow Improved](https://github.com/oblitum/rainbow)
-        - Currently there is a bug which may break this plugin, see [pull request](https://github.com/oblitum/rainbow/pull/13) which fixes it
+        - Currently there is a bug which may break this plugin, see [pull request](https://github.com/oblitum/rainbow/pull/13) I've submitted which fixes it.
     1. [Rainbow Parenthsis](http://www.vim.org/scripts/script.php?script_id=1561)
-        - No folding support in this plugin
+        - No folding support is available when using this plugin
 
 ## License
 
