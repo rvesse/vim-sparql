@@ -15,23 +15,31 @@ endif
 
 " Folding Regions
 " Must be defined first so later matches can override the colours
+" Firstly define our own default folding regions
+syntax region sparqlGraphPatternFold start="{" end="}" transparent fold
+syntax region sparqlBlankNodeFold start="\[" end="\]" transparent fold
+syntax region sparqlFunctionOrCollectionFold start="(" end=")" transparent fold
+
+" Then enable a rainbow parenthesis plugin if available which will override our
+" folding regions
+" This means that the plugins can be toggled on/off on the fly and our own folding 
+" behaviour will be preserved
 if exists("g:rainbow_active") && g:rainbow_active
   " Use rainbow braces improved plugin where available
   " https://github.com/oblitum/rainbow
+
+  " Ensure we have configured it for our syntax as otherwise it will break URI highlighting
+  call rainbow#clear ()
+  call rainbow#load([['(', ')'], ['\[', '\]'], ['{', '}']], '')
   call rainbow#activate ()
 elseif exists("g:btm_rainbow_color") && g:btm_rainbow_color
   " Use rainbow braces plugin when available
+  " BUG This will break folding unfortunately
   call rainbow_parenthsis#LoadRound ()
   call rainbow_parenthsis#LoadSquare ()
   call rainbow_parenthsis#LoadBraces ()
   call rainbow_parenthsis#Activate ()
-else
-  " Use our our regions
-  syntax region sparqlGraphPatternFold start="{" end="}" transparent fold
-  syntax region sparqlBlankNodeFold start="\[" end="\]" transparent fold
-  syntax region sparqlFunctionOrCollectionFold start="(" end=")" transparent fold
 endif
-
 " 19.8 - Note 1 - Keywords are matched in a case-insensitive manner (except a, true and false)
 syntax case ignore
 syntax keyword sparqlKeyword BASE PREFIX SELECT CONSTRUCT DESCRIBE ASK FROM NAMED DISTINCT REDUCED WHERE ORDER BY ASC DESC LIMIT OFFSET GROUP HAVING OPTIONAL GRAPH UNION VALUES UNDEF MINUS SERVICE BIND AS FILTER LOAD CLEAR DROP CREATE ADD MOVE COPY SILENT INTO TO INSERT DELETE DATA WITH USING DEFAULT NAMED ALL
