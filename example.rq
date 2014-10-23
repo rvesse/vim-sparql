@@ -1,6 +1,6 @@
-
 # This is a syntactically invalid query file but it serves to demonstrate all
 # the SPARQL syntax features
+# TODO Todo Notes will be highlighted appropriately :)
 
 BASE <http://base>
 PREFIX ex: <http://example.org>
@@ -27,6 +27,8 @@ WHERE
     "text" 
     "text"^^<http://datatype> 
     "text"@en 
+    "text with \n \t \r \b \f \" \' escape sequences"
+    "text with codepoint \u1234 \U12345678 escape sequences"
     [] 
     _:blank 
     123 

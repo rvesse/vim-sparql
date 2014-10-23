@@ -40,6 +40,7 @@ elseif exists("g:btm_rainbow_color") && g:btm_rainbow_color
   call rainbow_parenthsis#LoadBraces ()
   call rainbow_parenthsis#Activate ()
 endif
+
 " 19.8 - Note 1 - Keywords are matched in a case-insensitive manner (except a, true and false)
 syntax case ignore
 syntax keyword sparqlKeyword BASE PREFIX SELECT CONSTRUCT DESCRIBE ASK FROM NAMED DISTINCT REDUCED WHERE ORDER BY ASC DESC LIMIT OFFSET GROUP HAVING OPTIONAL GRAPH UNION VALUES UNDEF MINUS SERVICE BIND AS FILTER LOAD CLEAR DROP CREATE ADD MOVE COPY SILENT INTO TO INSERT DELETE DATA WITH USING DEFAULT NAMED ALL
@@ -56,7 +57,7 @@ syntax keyword sparqlBoolean true false
 syntax keyword Todo TODO FIXME BUG 
 
 " 19.4 - Comments 
-syntax match sparqlComment /\#.*$/ contains=Todo,rqCodepointEscape,@Spell
+syntax match sparqlComment /\#.*$/ contains=Todo,sparqlCodepointEscape,@Spell
 
 " Operators
 syntax match sparqlOperators "\v\*|/|\+|-|\<\=?|\>\=?|!\=?|\=|\&\&|\|\|"
@@ -66,20 +67,20 @@ syntax match sparqlCodepointEscape /\(\\U\x\{8\}\|\\u\x\{4\}\)/ contained contai
 syntax match sparqlStringEscape +\\[tnrbf\"']\++ contained contains=NONE
 
 " 19.8 - Strings - Productions 156,157,158,159
-syntax match sparqlStringSingle +'\([^\u0027\u005C\u000A\u000D]\|\\[tnrbf\\"']\+\|\\U\x\{8\}\|\\u\x\{4\}\)*'+ contains=rqStringEscape,rqCodepointEscape,@Spell 
-syntax match sparqlStringDouble +"\([^\u0022\u005C\u000A\u000D]\|\\[tnrbf\\"']\+\|\\U\x\{8\}\|\\u\x\{4\}\)*"+ contains=rqStringEscape,rqCodepointEscape,@Spell 
-syntax region sparqlStringLongSingle start=+'''+ end=+'''+ contains=rqStringEscape,rqCodepointEscape,@Spell 
-syntax region sparqlStringLongDouble start=+"""+ end=+"""+ contains=rqStringEscape,rqCodepointEscape,@Spell 
-syntax cluster sparqlString contains=rqStringSingle,rqStringDouble,rqStringLongSingle
+syntax match sparqlStringSingle +'\([^\u0027\u005C\u000A\u000D]\|\\[tnrbf\\"']\+\|\\U\x\{8\}\|\\u\x\{4\}\)*'+ contains=sparqlStringEscape,sparqlCodepointEscape,@Spell 
+syntax match sparqlStringDouble +"\([^\u0022\u005C\u000A\u000D]\|\\[tnrbf\\"']\+\|\\U\x\{8\}\|\\u\x\{4\}\)*"+ contains=sparqlStringEscape,sparqlCodepointEscape,@Spell 
+syntax region sparqlStringLongSingle start=+'''+ end=+'''+ contains=sparqlStringEscape,sparqlCodepointEscape,@Spell 
+syntax region sparqlStringLongDouble start=+"""+ end=+"""+ contains=sparqlStringEscape,sparqlCodepointEscape,@Spell 
+syntax cluster sparqlString contains=sparqlStringSingle,sparqlStringDouble,sparqlStringLongSingle
 
 " 19.8 - Prefixed Names - Production 137
 " TODO Currently matches the SPARQL 1.0 production and not the SPARQL 1.1 production
 " TODO Currently matches only the prefix portion, should also have rule to match local name portions
 " TODO Does not match named blank nodes
-syntax match sparqlQnamePrefix /\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+:/he=e-1 contains=rqCodepointEscape 
+syntax match sparqlQnamePrefix /\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+:/he=e-1 contains=sparqlCodepointEscape 
 
 " 19.8 - IRIs - Production 139
-syntax match sparqlQIRIREF /<[^<>'{}|^`\u00-\u20]*>/ contains=rqCodepointEscape 
+syntax match sparqlQIRIREF /<[^<>'{}|^`\u00-\u20]*>/ contains=sparqlCodepointEscape 
 
 " TODO Rule for anonymous blank nodes i.e. []
 
@@ -87,7 +88,7 @@ syntax match sparqlQIRIREF /<[^<>'{}|^`\u00-\u20]*>/ contains=rqCodepointEscape
 " (JPU: High code points crash my vim, too many character classes SEGV my vim
 "  I'll just keep it simple for now: recognize word-class characters plus
 "  escapes: )
-syntax match sparqlVar /[?$]\{1\}\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+/ contains=rqCodepointEscape
+syntax match sparqlVar /[?$]\{1\}\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+/ contains=sparqlCodepointEscape
 
 " 19.8 - Numerics - Productions 146, 147 and 148
 syntax case ignore
@@ -96,7 +97,6 @@ syntax match sparqlDecimal "\v\d+\.\d+"
 syntax match sparqlDouble "\v\d+\.?\d*[eE][-+]?\d+"
 syntax match sparqlExpOnlyDouble "\v\.[eE][-+]?\d+"
 syntax match sparqlNoFloatingPointDouble "\v\d+[eE][-+]?\d+"
-
 
 " Apply highlighting
 highlight link sparqlKeyword Keyword 
@@ -112,7 +112,6 @@ highlight link sparqlComment Comment
 highlight link sparqlRdfType Constant 
 highlight link sparqlQIRIREF Identifier
 highlight link sparqlBoolean Boolean
-" Should really be Number but Number defaults to no formatting
 highlight link sparqlInteger Number
 highlight link sparqlDecimal Number
 highlight link sparqlDouble Number
