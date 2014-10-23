@@ -9,14 +9,8 @@ SELECT
   ?x
   (true AS ?true) 
   (<http://some/uri> AS ?example) 
-  ("test" AS ?literal)
-  ("test"^^<http://type> AS ?typedLiteral)
-  ("test"@en AS ?langLiteral)
-  (123 AS ?int)
-  (12.3 AS ?decimal)
-  (1.2e3 AS ?double)
-  (.e3 AS ?expOnlyDouble)
-  (1e3 AS ?noFloatDouble)
+  ("test" AS ?literal) ("test"^^<http://type> AS ?typedLiteral) ("test"@en AS ?langLiteral)
+  (123 AS ?int) (12.3 AS ?decimal) (1.2e3 AS ?double) (.e3 AS ?expOnlyDouble) (1e3 AS ?noFloatDouble)
 FROM NAMED <http://graph>
 WHERE
 {
@@ -24,6 +18,9 @@ WHERE
   VALUES ?x
   {
     <http://example.org/path/to/file.ext?querystring#fragment>
+    <http://illegal whitespace	in	uri>
+    <http://illegal
+newline>
     "text" 
     "text"^^<http://datatype> 
     "text"@en 
