@@ -7,6 +7,7 @@ This is an fork of a script originally uploaded to [http://www.vim.org/scripts/s
 - Highlights most of SPARQL 1.1 Query and Update Syntax
 - Folding support for `{ }`, `[ ]` and `( )`
 - Rainbow parenthesis support (Requires [optional dependencies](#optional-dependencies))
+- Prefix expansion macro using Prefix.cc (Based on https://blog.soton.ac.uk/webteam/2011/04/11/a-vim-one-liner-for-expanding-rdf-namespace-prefixes/)
 
 ### TODO
 
@@ -49,5 +50,7 @@ The SPARQL Vim Plugin is in the public domain under the Unlicense, see the `LICE
 Original script by Jeroen Pulles, 2007-01-07
 
 Filetype detection added by Omer Jakobinsky in his fork at https://github.com/Omer/vim-sparql
+
+Prefix.cc expansion based on macro by Dave Challis from https://blog.soton.ac.uk/webteam/2011/04/11/a-vim-one-liner-for-expanding-rdf-namespace-prefixes/
 
 SPARQL 1.1, folding and rainbow parenthesis support added by Rob Vesse

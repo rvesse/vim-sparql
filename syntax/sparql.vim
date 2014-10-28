@@ -1,7 +1,7 @@
 " Vim syntax file 
 " Language: SPARQL 
 " Maintainer: Rob Vesse <rvesse@dotnetrdf.org
-" Last Change: 18/9/2014
+" Last Change: 23/10/2014
 " Remark: 
 " Uses the SPARQL 1.1 grammar from http://www.w3.org/TR/sparql11-query/#sparqlGrammar
 
@@ -41,6 +41,9 @@ elseif exists("g:btm_rainbow_color") && g:btm_rainbow_color
   call rainbow_parenthsis#Activate ()
 endif
 
+" Provide auto-expansion of prefixes using prefix.cc
+:nmap <silent> \p <ESC>:let @p = system("CO=$(curl -m 10 -s http://prefix.cc/".expand("<cword>").".file.txt);NL=$(echo \"$CO\"\|wc -l);if [ \"$NL\" -gt 1 ];then echo -n \"NOTFOUND\";else echo \"$CO\"\|cut -f2\|tr -d '\n';fi")<CR>ciw<C-r>p<ESC>
+
 " 19.8 - Note 1 - Keywords are matched in a case-insensitive manner (except a, true and false)
 syntax case ignore
 syntax keyword sparqlKeyword BASE PREFIX SELECT CONSTRUCT DESCRIBE ASK FROM NAMED DISTINCT REDUCED WHERE ORDER BY ASC DESC LIMIT OFFSET GROUP HAVING OPTIONAL GRAPH UNION VALUES UNDEF MINUS SERVICE BIND AS FILTER LOAD CLEAR DROP CREATE ADD MOVE COPY SILENT INTO TO INSERT DELETE DATA WITH USING DEFAULT NAMED ALL
@@ -77,7 +80,7 @@ syntax cluster sparqlString contains=sparqlStringSingle,sparqlStringDouble,sparq
 " TODO Currently matches the SPARQL 1.0 production and not the SPARQL 1.1 production
 " TODO Currently matches only the prefix portion, should also have rule to match local name portions
 " TODO Does not match named blank nodes
-syntax match sparqlQnamePrefix /\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+:/he=e-1 contains=sparqlCodepointEscape 
+syntax match sparqlQnamePrefix /\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+:/he=e-1 contains=sparqlCodepointEscape
 
 " 19.8 - IRIs - Production 139
 syntax match sparqlIllegalIriNewline "\v\<([^<>'{}]|\s|\n|\r)*\>" contains=sparqlCodepointEscape
@@ -85,6 +88,7 @@ syntax match sparqlIllegalIriWhitespace /<[^<>'{}]*>/ contains=sparqlCodepointEs
 syntax match sparqlIri /<[^<>'{}|^`\u00-\u20]*>/ contains=sparqlCodepointEscape oneline
 
 " TODO Rule for anonymous blank nodes i.e. []
+" TODO Rule for named blank nodes i.e. _:name
 
 " 19.8 - Variables - Productions 143, 144 and 166
 " (JPU: High code points crash my vim, too many character classes SEGV my vim
