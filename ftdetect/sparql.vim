@@ -9,6 +9,7 @@
 augroup filetypedetect
   au! BufRead,BufNewFile,BufWritePost *.rq setfiletype sparql
   au! BufRead,BufNewFile,BufWritePost *.ru setfiletype sparql
+  au! BufRead,BufNewFile,BufWritePost *.sparql setfiletype sparql
 augroup END
 
 " Set fold method to syntax and fold level appropriately
