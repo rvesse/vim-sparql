@@ -96,13 +96,13 @@ syntax match sparqlIri /<[^<>'{}|^`\u00-\u20]*>/ contains=sparqlCodepointEscape 
 "  escapes: )
 syntax match sparqlVar /[?$]\{1\}\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+/ contains=sparqlCodepointEscape
 
-" 19.8 - Numerics - Productions 146, 147 and 148
+" 19.8 - Numerics - Productions 146-154
 syntax case ignore
-syntax match sparqlInteger "\v\d+"
-syntax match sparqlDecimal "\v\d+\.\d+"
-syntax match sparqlDouble "\v\d+\.?\d*[eE][-+]?\d+"
-syntax match sparqlExpOnlyDouble "\v\.[eE][-+]?\d+"
-syntax match sparqlNoFloatingPointDouble "\v\d+[eE][-+]?\d+"
+syntax match sparqlInteger "\s[+-]\=\d\+"
+syntax match sparqlDecimal "\s[+-]\=\d\+\.\d\+"
+syntax match sparqlDouble "\s[+-]\=\d\+\.\d*[eE][+-]\=\d\+"
+syntax match sparqlExpOnlyDouble "\s[+-]\=\.[eE][+-]\=\d\+"
+syntax match sparqlNoFloatingPointDouble "\s[+-]\=\d\+[eE][+-]\=\d\+"
 
 " Apply highlighting
 highlight link sparqlKeyword Keyword 
