@@ -5,12 +5,20 @@
 BASE <http://base>
 PREFIX ex: <http://example.org>
 
+# The SPARQL plugin includes a prefix expansion feature using prefix.cc
+# To use it type \p when in command mode and the word under the cursor will
+# be expanded if possible
+# Try it on the following:
+# rdf
+# foaf
+
 SELECT
   ?x
   (true AS ?true) 
   (<http://some/uri> AS ?example) 
   ("test" AS ?literal) ("test"^^<http://type> AS ?typedLiteral) ("test"@en AS ?langLiteral)
   (123 AS ?int) (12.3 AS ?decimal) (1.2e3 AS ?double) (.e3 AS ?expOnlyDouble) (1e3 AS ?noFloatDouble)
+  (-123 AS ?negInt) (-12.3 AS ?negDecimal) (-1.2e3 AS ?negDouble) (-.e3 AS ?negExpOnlyDouble) (-1e3 AS ?negNoFloatDouble)
 FROM NAMED <http://graph>
 WHERE
 {
