@@ -83,8 +83,7 @@ syntax cluster sparqlString contains=sparqlStringSingle,sparqlStringDouble,sparq
 syntax match sparqlQnamePrefix /\(\w\|\\U\x\{8\}\|\\u\x\{4\}\)\+:/he=e-1 contains=sparqlCodepointEscape
 
 " 19.8 - IRIs - Production 139
-syntax match sparqlIllegalIriNewline "\v\<([^<>'{}]|\s|\n|\r)*\>" contains=sparqlCodepointEscape
-syntax match sparqlIllegalIriWhitespace /<[^<>'{}]*>/ contains=sparqlCodepointEscape
+syntax match sparqlIllegalIri /<[^<>'{}\n\r\s]*/ contains=sparqlCodepointEscape oneline
 syntax match sparqlIri /<[^<>'{}|^`\u00-\u20]*>/ contains=sparqlCodepointEscape oneline
 
 " TODO Rule for anonymous blank nodes i.e. []
@@ -117,8 +116,7 @@ highlight link sparqlStringLongDouble String
 highlight link sparqlComment Comment
 highlight link sparqlRdfType Constant 
 highlight link sparqlIri Identifier
-highlight link sparqlIllegalIriWhitespace Error
-highlight link sparqlIllegalIriNewline Error
+highlight link sparqlIllegalIri Error
 highlight link sparqlBoolean Boolean
 highlight link sparqlInteger Number
 highlight link sparqlDecimal Number
